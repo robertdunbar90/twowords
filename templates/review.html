@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<p><strong>{{ title }}</strong></p>
+
+<table>
+  <col width="180">
+  <col width="180">
+  <col width="50">
+  <tr>
+    <th>Reviewer</th>
+    <th>Review</th>
+    <th>Rating</th>
+  </tr>
+
+  {% for review in reviews %}
+    <tr>
+      <td>{{ review[1] }}</td>
+      <td>{{ review[2] }}</td>
+      <td>{{ review[3] }}/5</td>
+    </tr>
+  {% endfor %}
+</table>
+
+<br>
+<p><a href={{ url_for('add_review', title=title, subject=subject) }}>Add review</a></p>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% block start_form %}
+{% endblock %}
+
+<p>
+  {{ form.reviewer.label }}<br>
+  {{ form.reviewer }}
+</p>
+
+<p>
+  {{ form.review.label }}<br>
+  {{ form.review }}
+</p>
+
+<p>
+  {{ form.rating.label }}<br>
+  {{ form.rating }}
+</p>
+
+<p>
+  {{ form.submit }}
+</p>
+
+</form>
+
+{% endblock %}

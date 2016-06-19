@@ -1,0 +1,14 @@
+{% extends 'base_add.html' %}
+
+{% block start_form %}
+
+<form action={{ url_for('add_subject') }} method="post">
+{{ form.hidden_tag() }}
+
+<p>
+  {{ form.title.label }}<br>
+  {{ form.title }}
+</p>
+
+
+{% endblock %}

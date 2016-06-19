@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<table>
+  <col width="200">
+  <col width="20">
+  <col width="55">
+  <tr>
+    <th>Subject</th>
+    <th> # </th>
+    <th></th>
+  </tr>
+  {% for review in reviews %}
+    <tr>
+      <td>{{ review[1] }}</td>
+      <td>{{ review[2] }}</td>
+      <td><a href={{ url_for('review', subject=review[0]) }}>Show</td>
+    </tr>
+  {% endfor %}
+</table>
+
+<br>
+
+{%- for page in pagination.iter_pages() %}
+  {% if page %}
+    {% if page != pagination.page %}
+      <a href={{ url_for('home', page=page ) }}>{{ page }}</a>
+    {% else %}
+      <strong>{{ page }}</strong>
+    {% endif %}
+  {% else %}
+    <span>…</span>
+  {% endif %}
+{%- endfor %}
+{% if pagination.has_next %}
+  <a href={{ url_for('home', page=pagination.page + 1) }}>Next &raquo;</a>
+{% endif %}
+</div>
+
+<br>
+
+<p><a href={{ url_for('add_subject') }}>Add review</a></p>
+
+{% endblock %}
