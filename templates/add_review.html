@@ -2,9 +2,9 @@
 
 {% block start_form %}
 
-<form action={{ url_for('add_review', subject=form.subject) }} method="post">
+<form action={{ url_for('add_review', subject=subject) }} method="post">
 {{ form.hidden_tag() }}
 
-<p><strong>{{ form.title }}</strong></p>
+<p><strong>{{ subject_title }}</strong></p>
 
 {% endblock %}

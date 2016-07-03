@@ -52,20 +52,24 @@ def add_subject():
     subject = insert_subject(form.title.data, form.reviewer.data, form.review.data, form.rating.data)
     return redirect(url_for('review', subject=subject))
 
-@app.route('/add_review', methods=['GET', 'POST'])
-def add_review():
+@app.route('/review/<int:subject>/add_review', methods=['GET', 'POST'])
+def add_review(subject):
   form = ReviewForm()
-  form.title = request.args.get('title')
-  form.subject = request.args.get('subject')
+  subject_title = get_title(subject)[0]
   if request.method == 'GET':
-    return render_template('add_review.html', form=form)
+    return render_template('add_review.html', form=form, subject=subject, subject_title=subject_title)
   elif request.method == 'POST':
-    insert_review(None, form.subject, form.reviewer.data, form.review.data, form.rating.data) 
-    return redirect(url_for('review', subject=form.subject))
+    insert_review(None, subject, form.reviewer.data, form.review.data, form.rating.data) 
+    return redirect(url_for('review', subject=subject))
 
 def count_pages():
   query = 'select count(*) from subject;'
   return g.db.execute(query).fetchone()[0]
+
+def get_title(subject):
+  query = 'select s.title from subject s where s.id = ?;'
+  result = g.db.execute(query, (subject,)).fetchone()
+  return result
 
 def get_reviews_for_page(page):
   query = 'select s.id, s.title, count(r.id) from subject s, review r where r.subjectFk = s.id group by s.id order by s.title limit ? offset ?;'
